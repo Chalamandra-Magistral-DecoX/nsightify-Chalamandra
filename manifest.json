@@ -2,14 +2,23 @@
   "manifest_version": 3,
   "name": "Insightify Chalamandra",
   "version": "1.0.0",
-  "description": "Decodificación magistral con IA local. Del Caos a la Claridad.",
-  "permissions": ["activeTab", "scripting", "storage", "aiAssistant"],
+  "description": "Decodificación Magistral SRAP: Firewall, Mapas y Audio Beats con IA Local.",
+  "permissions": ["activeTab", "scripting", "storage"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon128.png"
+    "default_icon": {
+        "16": "icon128.png",
+        "48": "icon128.png",
+        "128": "icon128.png"
+    }
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon128.png",
+    "48": "icon128.png",
+    "128": "icon128.png"
   },
   "content_scripts": [
     {
