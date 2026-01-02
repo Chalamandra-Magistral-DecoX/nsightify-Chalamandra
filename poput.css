@@ -3,6 +3,7 @@
   --clarity-green: #39FF14;
   --cyber-cyan: #00FFEA;
   --dark-bg: #0a0a1a;
+  --panel-bg: rgba(255, 255, 255, 0.05);
 }
 
 body {
@@ -11,50 +12,95 @@ body {
   color: #e0e0ff;
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
+  overflow-x: hidden;
 }
 
-.chalamandra-container {
-  padding: 16px;
-  border: 1px solid var(--cyber-cyan);
-}
+.chalamandra-container { padding: 15px; }
 
 header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 255, 234, 0.3);
-  padding-bottom: 8px;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 255, 234, 0.2);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.logo { color: var(--clarity-green); font-weight: bold; }
+.brand { display: flex; align-items: center; gap: 5px; }
+.logo-text { color: var(--clarity-green); font-weight: bold; font-size: 14px; }
+.badge { background: var(--chaos-red); font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
 
-.badge {
-  background: var(--chaos-red);
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 10px;
-}
+h1 { margin: 0; font-size: 24px; color: white; text-transform: uppercase; letter-spacing: 1px; }
+.subtitle { margin: 0 0 15px 0; font-size: 12px; color: var(--cyber-cyan); opacity: 0.8; }
 
-button {
+/* Botón Principal */
+.btn-primary {
   width: 100%;
-  background: linear-gradient(45deg, var(--chaos-red), #9D00FF);
+  background: linear-gradient(90deg, var(--chaos-red), #9D00FF);
   color: white;
   border: none;
   padding: 12px;
-  margin-top: 15px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
   border-radius: 4px;
+  transition: transform 0.1s;
+}
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Firewall */
+.firewall-box {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 11px;
+  border: 1px solid var(--cyber-cyan);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
+/* Resultados */
 .result-box {
   margin-top: 15px;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--panel-bg);
   font-size: 13px;
-  line-height: 1.4;
-  max-height: 200px;
-  overflow-y: auto;
+  line-height: 1.5;
   border-left: 3px solid var(--clarity-green);
+  max-height: 150px;
+  overflow-y: auto;
 }
 
-.hidden { display: none; }
+/* Loader */
+#loader { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; font-size: 12px; color: var(--cyber-cyan); }
+.spinner { width: 15px; height: 15px; border: 2px solid var(--cyber-cyan); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Mapa */
+#map-section { margin-top: 15px; text-align: center; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; }
+.section-title { font-size: 10px; color: var(--cyber-cyan); letter-spacing: 1px; margin-bottom: 5px; text-align: left; }
+canvas { background: transparent; }
+
+/* Audio */
+.audio-box {
+  margin-top: 15px;
+  padding: 8px;
+  border: 1px dashed var(--cyber-cyan);
+  background: rgba(0, 255, 234, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+}
+.audio-info { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--cyber-cyan); }
+.audio-buttons { display: flex; gap: 5px; }
+.btn-audio { font-size: 9px; padding: 5px 10px; background: transparent; border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); cursor: pointer; }
+.btn-audio:hover { background: var(--cyber-cyan); color: var(--dark-bg); }
+.btn-audio.stop { border-color: var(--chaos-red); color: var(--chaos-red); }
+.btn-audio.stop:hover { background: var(--chaos-red); color: white; }
+
+.pulse-active { animation: pulse 1s infinite; }
+@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 5px var(--clarity-green); } 100% { opacity: 0.5; } }
+.hidden { display: none !important; }
