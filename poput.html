@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="popup.css">
+  <title>Insightify</title>
 </head>
 <body>
   <div class="chalamandra-container">
     <header>
-      <span class="logo">🦎 CHALAMANDRA</span>
-      <div class="badge">Local AI</div>
+      <div class="brand">
+        <span class="logo-icon">🦎</span> 
+        <span class="logo-text">CHALAMANDRA</span>
+      </div>
+      <div class="badge">SRAP v1.0</div>
     </header>
     
-    <div class="content">
+    <div class="main-content">
       <h1>Insightify</h1>
-      <p>Transforma el fuego en claridad.</p>
+      <p class="subtitle">Decodificación Magistral</p>
       
-      <button id="btnAction">DECODIFICAR (FDM)</button>
+      <div id="firewall-status" class="firewall-box hidden">
+        <span id="firewall-icon">🛡️</span>
+        <span id="firewall-msg">Analizando integridad...</span>
+      </div>
+
+      <button id="btnAction" class="btn-primary">ACTIVAR FDM (SCAN)</button>
       
-      <div id="loader" class="hidden">Analizando Ritmo...</div>
-      <div id="result" class="result-box">Esperando Scan...</div>
+      <div id="loader" class="hidden">
+        <div class="spinner"></div>
+        <span>Sintonizando Ritmo...</span>
+      </div>
+      
+      <div id="result" class="result-box hidden"></div>
+
+      <div id="map-section" class="hidden">
+        <div class="section-title">MAPA NEURONAL</div>
+        <canvas id="mapCanvas" width="280" height="220"></canvas>
+      </div>
+
+      <div id="audio-controls" class="audio-box hidden">
+        <div class="audio-info">
+          <span class="pulse-icon">🔊</span>
+          <span class="audio-label">SRAP BEATS</span>
+        </div>
+        <div class="audio-buttons">
+          <button id="btnPlayAudio" class="btn-audio">▶ PLAY</button>
+          <button id="btnStopAudio" class="btn-audio stop">■ STOP</button>
+        </div>
+      </div>
     </div>
     
-    <footer>SRAP v1.0 | Offline-First</footer>
+    <footer>Privacy First • Local Intelligence</footer>
   </div>
   <script src="popup.js"></script>
 </body>
