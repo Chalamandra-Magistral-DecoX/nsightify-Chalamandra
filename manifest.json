@@ -1,23 +1,30 @@
 {
   "manifest_version": 3,
   "name": "Insightify Chalamandra Pro",
-  "version": "2.0.0",
-  "description": "Firewall Cognitivo, Mapas Neuronales y Audio Beats con 100% Local AI.",
-  "permissions": ["activeTab", "scripting", "storage", "aiLanguageModelOriginTrial"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon128.png"
-  },
+  "version": "4.5.1",
+  "description": "Soberanía Cognitiva: IA Local, Firewall de Integridad y Resonancia Nodal.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "webNavigation",
+    "aiLanguageModelOriginTrial"
+  ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
     "128": "icon128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png"
     }
-  ]
+  }
 }
