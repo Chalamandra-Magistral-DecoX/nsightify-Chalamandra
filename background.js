@@ -1,4 +1,48 @@
-const API_KEY = 'YOUR_API_KEY'; 
+
+let creatingOffscreenDocument;
+
+// Function to ensure offscreen document exists
+async function setupOffscreenDocument(path) {
+  const existingContexts = await chrome.runtime.getContexts({
+    contextTypes: ['OFFSCREEN_DOCUMENT']
+  });
+
+  if (existingContexts.length > 0) {
+    return;
+  }
+
+  // Prevent multiple creations
+  if (creatingOffscreenDocument) {
+    await creatingOffscreenDocument;
+  } else {
+    creatingOffscreenDocument = chrome.offscreen.createDocument({
+      url: path,
+      reasons: ['WORKERS'],
+      justification: 'Processing AI requests with Gemini Nano',
+    });
+    await creatingOffscreenDocument;
+    creatingOffscreenDocument = null;
+  }
+}
+
+// Function to send message to offscreen document with retry
+async function sendMessageToOffscreen(message) {
+  await setupOffscreenDocument('offscreen.html');
+
+  // Retry logic to handle race condition where offscreen script isn't ready
+  let attempts = 0;
+  while (attempts < 10) {
+    try {
+      const response = await chrome.runtime.sendMessage(message);
+      if (response) return response;
+    } catch (e) {
+      // Ignore error and retry
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+    attempts++;
+  }
+  throw new Error("Failed to communicate with offscreen document.");
+}
 
 async function generateHash(text) {
   const msgBuffer = new TextEncoder().encode(text.substring(0, 5000));
@@ -32,20 +76,22 @@ async function handleCortex(payload) {
 
   if (payload.action === "decodificar") {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `Eres el Cortex Chalamandra. Genera un Resumen (7 puntos) y un Mapa JSON (center, nodes). Texto: ${payload.text}` }] }]
-        })
+      // Send message to offscreen document
+      const response = await sendMessageToOffscreen({
+        action: 'decodificarOffscreen',
+        text: payload.text
       });
-      if (!response.ok) throw new Error('API error');
-      const data = await response.json();
-      const result = data.candidates[0].content.parts[0].text;
+
+      if (response.status === 'ERROR') {
+        throw new Error(response.message);
+      }
+
+      const result = response.data;
       cache[hash] = result;
       await chrome.storage.local.set({ cache });
       return { status: "SUCCESS", data: result, hash };
     } catch (e) {
+      console.error("Cortex Error:", e);
       return { status: "ERROR", message: e.message };
     }
   }
