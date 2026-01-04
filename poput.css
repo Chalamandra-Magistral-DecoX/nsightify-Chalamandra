@@ -1,207 +1,45 @@
-/* VARIABLES CORE - DECOX SYSTEM */
 :root {
   --chaos-red: #FF003C; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   --clarity-green: #39FF14; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   --cyber-cyan: #00FFEA; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  --dark-bg: #0a0a1a; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  --panel-bg: rgba(255, 255, 255, 0.05); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  --dark-bg: #050510; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 }
 
-/* ESTRUCTURA BASE */
 body {
   width: 320px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   background-color: var(--dark-bg); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   color: #e0e0ff; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   font-family: 'Segoe UI', sans-serif; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   margin: 0; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  overflow-x: hidden; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 }
 
-.chalamandra-container { 
-  padding: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
+.chalamandra-container { padding: 15px; } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 
-/* HEADER Y BRANDING */
-header {
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  justify-content: space-between; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-bottom: 1px solid rgba(0, 255, 234, 0.2); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding-bottom: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  margin-bottom: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
+/* Branding Pro */
+.logo-text { color: var(--clarity-green); font-weight: bold; font-size: 14px; } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 
-.brand { 
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  gap: 5px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.logo-text { 
-  color: var(--clarity-green); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-weight: bold; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 14px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  letter-spacing: 1px;
-}
-
-.badge { 
-  background: var(--chaos-red); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 9px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 2px 6px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 4px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-weight: bold; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-/* TIPOGRAFÍA */
-h1 { 
-  margin: 0; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 24px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: white; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  text-transform: uppercase; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  letter-spacing: 1px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.subtitle { 
-  margin: 0 0 15px 0; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 12px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  opacity: 0.8; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-/* BOTÓN DE ACCIÓN (SCAN SRAP) */
+/* Botón de Poder */
 .btn-primary {
   width: 100%; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   background: linear-gradient(90deg, var(--chaos-red), #9D00FF); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
   color: white; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border: none; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 12px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-weight: bold; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  cursor: pointer; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 4px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  transition: transform 0.1s, filter 0.2s; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 }
 
-.btn-primary:hover { filter: brightness(1.2); }
-.btn-primary:active { transform: scale(0.98); } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-
-/* FIREWALL COGNITIVO */
-.firewall-box {
-  margin-bottom: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 8px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 11px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border: 1px solid var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  background: rgba(0, 0, 0, 0.3); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 4px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  gap: 8px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-/* ÁREA DE RESULTADOS */
+/* Áreas de Decodificación */
 .result-box {
-  margin-top: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  background: var(--panel-bg); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 13px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  line-height: 1.5; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-left: 3px solid var(--clarity-green); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  max-height: 150px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  overflow-y: auto; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.05); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  border-left: 3px solid var(--clarity-green); font-size: 13px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  max-height: 150px; overflow-y: auto; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 }
 
-/* CARGANDO (RITMO) */
-#loader { 
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  justify-content: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  gap: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  margin-top: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 12px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.spinner { 
-  width: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  height: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border: 2px solid var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-top-color: transparent; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 50%; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  animation: spin 1s linear infinite; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-@keyframes spin { 100% { transform: rotate(360deg); } } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-
-/* SECCIÓN DE MAPA */
-#map-section { 
-  margin-top: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  text-align: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  background: rgba(0,0,0,0.2); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 8px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.section-title { 
-  font-size: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  letter-spacing: 1px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  margin-bottom: 5px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  text-align: left; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-/* AUDIO BEATS */
+/* SRAP Audio Beats */
 .audio-box {
-  margin-top: 15px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 8px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border: 1px dashed var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  background: rgba(0, 255, 234, 0.05); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  justify-content: space-between; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border-radius: 4px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  margin-top: 15px; padding: 8px; border: 1px dashed var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+  display: flex; justify-content: space-between; align-items: center; border-radius: 4px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 }
 
-.audio-info { 
-  display: flex; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  align-items: center; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  gap: 5px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  font-size: 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.btn-audio { 
-  font-size: 9px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  padding: 5px 10px; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  background: transparent; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  border: 1px solid var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  cursor: pointer; /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.btn-audio:hover { 
-  background: var(--cyber-cyan); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--dark-bg); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-.btn-audio.stop { 
-  border-color: var(--chaos-red); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-  color: var(--chaos-red); /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-}
-
-/* ANIMACIONES */
 .pulse-active { animation: pulse 1s infinite; } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-@keyframes pulse { 
-  0% { opacity: 0.5; } 
-  50% { opacity: 1; text-shadow: 0 0 5px var(--clarity-green); } 
-  100% { opacity: 0.5; } 
-} /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
+@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
 
 .hidden { display: none !important; } /* cite: uploaded:nsightify-Chalamandra-main.zip/nsightify-Chalamandra-main/poput.css */
-
-footer {
-  margin-top: 15px;
-  font-size: 8px;
-  text-align: center;
-  color: rgba(224, 224, 255, 0.4);
-  letter-spacing: 1px;
-}
