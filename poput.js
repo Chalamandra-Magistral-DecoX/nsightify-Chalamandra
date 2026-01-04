@@ -1,63 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const btnAction = document.getElementById('btnAction');
-  const identiconBox = document.getElementById('identicon');
-  const canvas = document.getElementById('mapCanvas');
-  const ctx = canvas.getContext('2d');
-  let currentHash = "", lastData = "";
+    const btnAction = document.getElementById('btnAction');
+    const identiconBox = document.getElementById('identicon');
+    const resultBox = document.getElementById('result');
+    const loader = document.getElementById('loader');
+    const audioPanel = document.getElementById('audio-controls');
+    
+    let currentHash = "";
 
-  function getIdenticon(hash) {
-    const hue = parseInt(hash.substring(0, 2), 16);
-    const color = `hsla(${hue}, 80%, 60%, 0.8)`;
-    return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="12" fill="none" stroke="${color}" stroke-width="1" />
-      <path d="M16 4 L28 24 L4 24 Z" fill="${color}" opacity="0.5" transform="rotate(${hue}, 16, 16)"/>
-    </svg>`;
-  }
+    // Generador de Identicon basado en Hash
+    function updateIdenticon(hash) {
+        const hue = parseInt(hash.substring(0, 2), 16);
+        const color = `hsla(${hue}, 80%, 60%, 0.9)`;
+        identiconBox.innerHTML = `
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" fill="none"/>
+                <circle cx="16" cy="16" r="10" stroke="${color}" stroke-width="2" fill="none"/>
+                <path d="M16 8 L22 24 L10 24 Z" fill="${color}" opacity="0.6">
+                    <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="10s" repeatCount="indefinite"/>
+                </path>
+            </svg>`;
+    }
 
-  btnAction.addEventListener('click', async () => {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    btnAction.disabled = true;
-    document.getElementById('loader').classList.remove('hidden');
+    btnAction.addEventListener('click', async () => {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        
+        btnAction.disabled = true;
+        loader.classList.remove('hidden');
+        resultBox.classList.add('hidden');
 
-    chrome.tabs.sendMessage(tab.id, { action: "scanDOM" }, (payload) => {
-      chrome.runtime.sendMessage({ action: "decodificar", ...payload }, (res) => {
-        document.getElementById('loader').classList.add('hidden');
-        btnAction.disabled = false;
+        // 1. Pedir contenido al Sentinel (content.js)
+        chrome.tabs.sendMessage(tab.id, { action: "scanDOM" }, (response) => {
+            if (!response) {
+                loader.innerText = "Error: Recarga la página";
+                return;
+            }
 
-        if (res.hash) {
-          currentHash = res.hash;
-          identiconBox.innerHTML = getIdenticon(res.hash);
-        }
+            // 2. Procesar en el Cortex (background.js)
+            chrome.runtime.sendMessage({ action: "decodificar", text: response.text }, (res) => {
+                loader.classList.add('hidden');
+                btnAction.disabled = false;
 
-        if (res.status === "RIESGO") {
-          document.getElementById('riskArea').classList.remove('hidden');
-          identiconBox.classList.add('glitch-identicon');
-          return;
-        }
+                if (res.hash) {
+                    currentHash = res.hash;
+                    updateIdenticon(res.hash);
+                }
 
-        if (res.data) {
-          lastData = res.data;
-          document.getElementById('result').innerText = res.data.split('{')[0];
-          document.getElementById('result').classList.remove('hidden');
-          document.getElementById('audio-controls').classList.remove('hidden');
-          drawNeuralNode();
-        }
-      });
+                if (res.status === "RIESGO") {
+                    document.getElementById('riskArea').classList.remove('hidden');
+                    return;
+                }
+
+                if (res.data) {
+                    resultBox.innerText = res.data.split('{')[0]; // Limpiar JSON si viene pegado
+                    resultBox.classList.remove('hidden');
+                    audioPanel.classList.remove('hidden');
+                }
+            });
+        });
     });
-  });
 
-  document.getElementById('btnPlay').addEventListener('click', () => {
-    const synth = window.speechSynthesis;
-    const utter = new SpeechSynthesisUtterance(lastData.substring(0, 300));
-    utter.onstart = () => identiconBox.classList.add('vibrating-magistral');
-    utter.onend = () => identiconBox.classList.remove('vibrating-magistral');
-    synth.speak(utter);
-  });
-
-  function drawNeuralNode() {
-    document.getElementById('map-section').classList.remove('hidden');
-    ctx.fillStyle = "#00FFEA";
-    ctx.shadowBlur = 15; ctx.shadowColor = "#00FFEA";
-    ctx.beginPath(); ctx.arc(140, 100, 12, 0, Math.PI*2); ctx.fill();
-  }
+    // Control de Audio con Vibración Visual
+    document.getElementById('btnPlay').addEventListener('click', () => {
+        const text = resultBox.innerText;
+        const synth = window.speechSynthesis;
+        const utter = new SpeechSynthesisUtterance(text.substring(0, 400));
+        
+        utter.onstart = () => identiconBox.classList.add('vibrating');
+        utter.onend = () => identiconBox.classList.remove('vibrating');
+        
+        synth.speak(utter);
+    });
 });
