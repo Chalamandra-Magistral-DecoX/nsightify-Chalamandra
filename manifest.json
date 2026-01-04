@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Insightify Chalamandra Pro",
   "version": "4.5.1",
-  "description": "Soberanía Cognitiva: IA Local, Firewall de Integridad y Resonancia Nodal.",
+  "description": "Soberanía Cognitiva: IA Local, Firewall Sincronizado y Resonancia Nodal.",
   "permissions": [
     "activeTab",
     "scripting",
@@ -10,10 +10,6 @@
     "webNavigation",
     "aiLanguageModelOriginTrial"
   ],
-  "background": {
-    "service_worker": "background.js",
-    "type": "module"
-  },
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
@@ -26,5 +22,16 @@
       "32": "icon32.png",
       "48": "icon48.png"
     }
-  }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }
