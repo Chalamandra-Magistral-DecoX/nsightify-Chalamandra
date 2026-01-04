@@ -2,27 +2,16 @@
   "manifest_version": 3,
   "name": "Insightify Chalamandra Pro",
   "version": "2.0.0",
-  "description": "Soberanía Cognitiva SRAP: Firewall, Decodificación y Mapas Neuronales con IA Local.",
-  "permissions": [
-    "activeTab", 
-    "scripting", 
-    "storage",
-    "aiLanguageModelOriginTrial"
-  ],
+  "description": "Firewall Cognitivo, Mapas Neuronales y Audio Beats con 100% Local AI.",
+  "permissions": ["activeTab", "scripting", "storage", "aiLanguageModelOriginTrial"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": {
-        "16": "icon128.png",
-        "48": "icon128.png",
-        "128": "icon128.png"
-    }
+    "default_icon": "icon128.png"
   },
   "background": {
     "service_worker": "background.js"
   },
   "icons": {
-    "16": "icon128.png",
-    "48": "icon128.png",
     "128": "icon128.png"
   },
   "content_scripts": [
