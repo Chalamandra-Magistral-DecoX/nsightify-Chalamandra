@@ -1,9 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Insightify Chalamandra",
-  "version": "1.0.0",
-  "description": "Decodificación Magistral SRAP: Firewall, Mapas y Audio Beats con IA Local.",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "name": "Insightify Chalamandra Pro",
+  "version": "2.0.0",
+  "description": "Soberanía Cognitiva SRAP: Firewall, Decodificación y Mapas Neuronales con IA Local.",
+  "permissions": [
+    "activeTab", 
+    "scripting", 
+    "storage",
+    "aiLanguageModelOriginTrial"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
