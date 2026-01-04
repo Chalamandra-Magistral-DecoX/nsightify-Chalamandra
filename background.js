@@ -1,4 +1,15 @@
-const API_KEY = 'YOUR_API_KEY'; 
+
+// Function to ensure offscreen document exists
+async function setupOffscreenDocument(path) {
+  if (await chrome.offscreen.hasDocument()) {
+    return;
+  }
+  await chrome.offscreen.createDocument({
+    url: path,
+    reasons: ['WORKERS'], // 'WORKERS' is appropriate for offloading heavy work
+    justification: 'Processing AI requests with Gemini Nano',
+  });
+}
 
 async function generateHash(text) {
   const msgBuffer = new TextEncoder().encode(text.substring(0, 5000));
@@ -32,20 +43,25 @@ async function handleCortex(payload) {
 
   if (payload.action === "decodificar") {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `Eres el Cortex Chalamandra. Genera un Resumen (7 puntos) y un Mapa JSON (center, nodes). Texto: ${payload.text}` }] }]
-        })
+      // Setup offscreen document
+      await setupOffscreenDocument('offscreen.html');
+
+      // Send message to offscreen document
+      const response = await chrome.runtime.sendMessage({
+        action: 'decodificarOffscreen',
+        text: payload.text
       });
-      if (!response.ok) throw new Error('API error');
-      const data = await response.json();
-      const result = data.candidates[0].content.parts[0].text;
+
+      if (response.status === 'ERROR') {
+        throw new Error(response.message);
+      }
+
+      const result = response.data;
       cache[hash] = result;
       await chrome.storage.local.set({ cache });
       return { status: "SUCCESS", data: result, hash };
     } catch (e) {
+      console.error("Cortex Error:", e);
       return { status: "ERROR", message: e.message };
     }
   }
