@@ -2,34 +2,61 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="popup.css">
-  <title>Insightify Pro</title>
 </head>
 <body>
-  <div class="chalamandra-container">
+  <div class="chalamandra-container" id="app">
     <header>
-      <div class="brand"><span class="logo-icon">🦎</span> <span class="logo-text">CHALAMANDRA</span></div>
-      <div class="badge">FIREWALL ACTIVO</div>
+      <div class="brand">
+        <span class="icon">🦎</span>
+        <span class="logo-text">CHALAMANDRA <span class="version">PRO</span></span>
+      </div>
+      <div id="identicon" class="identicon-container" title="Huella Holográfica del Contenido"></div>
     </header>
     
-    <div class="main-content">
-      <button id="btnAction" class="btn-primary">ACTIVAR DECODIFICACIÓN</button>
+    <main>
+      <div class="status-bar">
+        <div id="statusBadge" class="badge">NÚCLEO LISTO</div>
+      </div>
+
+      <div class="action-area">
+        <button id="btnAction" class="btn-primary">DECODIFICAR REALIDAD</button>
+      </div>
       
-      <div id="loader" class="hidden"><div class="spinner"></div><span>Escaneando con IA Local...</span></div>
+      <div id="loader" class="hidden">
+        <div class="spinner"></div>
+        <p class="loader-text">SINCRONIZANDO...</p>
+      </div>
       
+      <div id="riskArea" class="hidden alert-red">
+        <div class="alert-content">
+          <span>⚠️ CONTENIDO BLOQUEADO</span>
+          <p class="alert-sub">Detección de clickbait/riesgo en Blacklist.</p>
+        </div>
+      </div>
+
       <div id="result" class="result-box hidden"></div>
 
       <div id="map-section" class="hidden">
-        <canvas id="mapCanvas" width="280" height="180"></canvas>
+        <div class="section-label">PROYECCIÓN NEURONAL</div>
+        <canvas id="mapCanvas" width="280" height="200"></canvas>
       </div>
 
       <div id="audio-controls" class="audio-box hidden">
-        <span class="pulse-icon">🔊</span>
-        <button id="btnPlayAudio">PLAY BEATS</button>
-        <button id="btnStopAudio">STOP</button>
+        <button id="btnPlay" class="btn-audio">
+          <span class="btn-icon">🔊</span> ESCUCHAR BEATS
+        </button>
+        <button id="btnBlacklist" class="btn-danger">
+          MARCAR COMO BASURA (SYNC)
+        </button>
       </div>
-    </div>
-    <script src="popup.js"></script>
+    </main>
+
+    <footer>
+      <span>PRIVACY FIRST • LOCAL AI</span>
+    </footer>
   </div>
+  <script src="popup.js"></script>
 </body>
 </html>
