@@ -1,14 +1,47 @@
 
+let creatingOffscreenDocument;
+
 // Function to ensure offscreen document exists
 async function setupOffscreenDocument(path) {
-  if (await chrome.offscreen.hasDocument()) {
+  const existingContexts = await chrome.runtime.getContexts({
+    contextTypes: ['OFFSCREEN_DOCUMENT']
+  });
+
+  if (existingContexts.length > 0) {
     return;
   }
-  await chrome.offscreen.createDocument({
-    url: path,
-    reasons: ['WORKERS'], // 'WORKERS' is appropriate for offloading heavy work
-    justification: 'Processing AI requests with Gemini Nano',
-  });
+
+  // Prevent multiple creations
+  if (creatingOffscreenDocument) {
+    await creatingOffscreenDocument;
+  } else {
+    creatingOffscreenDocument = chrome.offscreen.createDocument({
+      url: path,
+      reasons: ['WORKERS'],
+      justification: 'Processing AI requests with Gemini Nano',
+    });
+    await creatingOffscreenDocument;
+    creatingOffscreenDocument = null;
+  }
+}
+
+// Function to send message to offscreen document with retry
+async function sendMessageToOffscreen(message) {
+  await setupOffscreenDocument('offscreen.html');
+
+  // Retry logic to handle race condition where offscreen script isn't ready
+  let attempts = 0;
+  while (attempts < 10) {
+    try {
+      const response = await chrome.runtime.sendMessage(message);
+      if (response) return response;
+    } catch (e) {
+      // Ignore error and retry
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+    attempts++;
+  }
+  throw new Error("Failed to communicate with offscreen document.");
 }
 
 async function generateHash(text) {
@@ -43,11 +76,8 @@ async function handleCortex(payload) {
 
   if (payload.action === "decodificar") {
     try {
-      // Setup offscreen document
-      await setupOffscreenDocument('offscreen.html');
-
       // Send message to offscreen document
-      const response = await chrome.runtime.sendMessage({
+      const response = await sendMessageToOffscreen({
         action: 'decodificarOffscreen',
         text: payload.text
       });

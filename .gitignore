@@ -1,0 +1,25 @@
+# --- OS Metadata ---
+.DS_Store
+Thumbs.db
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Development / Build ---
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+
+# --- Extension Specific ---
+*.zip
+*.crx
+*.pem
+
+# --- Chalamandra Labs Extras ---
+temp_scans/
+debug_logs.txt
