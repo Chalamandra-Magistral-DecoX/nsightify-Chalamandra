@@ -1,3 +1,5 @@
+const API_KEY = 'YOUR_API_KEY'; 
+
 async function generateHash(text) {
   const msgBuffer = new TextEncoder().encode(text.substring(0, 5000));
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -30,11 +32,16 @@ async function handleCortex(payload) {
 
   if (payload.action === "decodificar") {
     try {
-      const session = await ai.languageModel.create({
-        systemPrompt: "Eres el Cortex Chalamandra. Genera un Resumen (7 puntos) y un Mapa JSON (center, nodes)."
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `Eres el Cortex Chalamandra. Genera un Resumen (7 puntos) y un Mapa JSON (center, nodes). Texto: ${payload.text}` }] }]
+        })
       });
-      const result = await session.prompt(payload.text);
-      session.destroy();
+      if (!response.ok) throw new Error('API error');
+      const data = await response.json();
+      const result = data.candidates[0].content.parts[0].text;
       cache[hash] = result;
       await chrome.storage.local.set({ cache });
       return { status: "SUCCESS", data: result, hash };
