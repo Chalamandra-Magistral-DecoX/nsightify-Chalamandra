@@ -1,54 +1,39 @@
-// Listener Principal
+// Listener Principal - Mantiene la comunicación entre la interfaz y el cerebro
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "decodificar") {
     procesarSRAP(request.text).then(sendResponse);
-    return true; // Mantiene canal abierto
+    return true; 
   }
 });
 
-// Orquestador SRAP (Scan, Ritmo, Análisis, Presencia)
 async function procesarSRAP(text) {
   try {
-    // Verificar disponibilidad de Gemini Nano
-    if (!window.ai || !window.ai.assistant) {
-      return { error: "⚠️ Gemini Nano no activo. Habilita los flags en chrome://flags." };
+    // Verificación de API (Compatible con Chrome 130+)
+    const capabilities = await ai.languageModel.capabilities();
+    if (capabilities.available === "no") {
+      return { error: "⚠️ El motor de IA local no está disponible en este navegador." };
     }
 
-    // 1. FIREWALL COGNITIVO (Análisis de Riesgo)
-    const firewallSession = await window.ai.assistant.create({
-      systemPrompt: "Eres un Firewall Cognitivo. Tu único trabajo es detectar clickbait o contenido basura. Responde solo con JSON válido."
+    // 1. FIREWALL COGNITIVO (SCAN)
+    // Analiza los primeros 500 caracteres para detectar basura informativa
+    const firewallSession = await ai.languageModel.create({
+      systemPrompt: "Eres un Firewall Cognitivo de Chalamandra Magistral. Detecta clickbait o contenido irrelevante. Responde solo JSON: {status: 'seguro' o 'riesgo', motivo: 'breve'}"
     });
     
-    const fwPrompt = `Analiza este texto. Responde JSON: {"status": "seguro" o "riesgo", "motivo": "breve razón"}. Texto: ${text.substring(0, 500)}`;
-    let fwResult;
-    try {
-      const fwRaw = await firewallSession.prompt(fwPrompt);
-      fwResult = JSON.parse(limpiarJSON(fwRaw));
-    } catch (e) {
-      fwResult = { status: "seguro", motivo: "Verificación offline" }; // Fallback
-    }
+    const fwPrompt = `Analiza integridad: ${text.substring(0, 500)}`;
+    const fwRaw = await firewallSession.prompt(fwPrompt);
+    const fwResult = JSON.parse(limpiarJSON(fwRaw));
     firewallSession.destroy();
 
-    // 2. DECODIFICACIÓN MAGISTRAL (Resumen + Mapa)
-    const mainSession = await window.ai.assistant.create({
-      systemPrompt: "Eres la IA Chalamandra. Resumes texto y creas estructuras de mapas mentales. Responde siempre en JSON."
+    // 2. DECODIFICACIÓN MAGISTRAL (ANÁLISIS)
+    // Procesa hasta 2500 caracteres para generar el resumen y el mapa
+    const mainSession = await ai.languageModel.create({
+      systemPrompt: "Eres la IA Chalamandra. Decodificas texto complejo en estructuras de poder. Responde siempre en JSON estricto."
     });
 
     const mainPrompt = `
-      Analiza este contenido. Genera un resumen y datos para un mapa mental.
-      Formato JSON estricto:
-      {
-        "resumen": "Tu resumen conciso aquí...",
-        "mapa": {
-          "tema": "Concepto Central",
-          "ramas": [
-            {"titulo": "Rama 1", "detalle": "Info"},
-            {"titulo": "Rama 2", "detalle": "Info"},
-            {"titulo": "Rama 3", "detalle": "Info"},
-            {"titulo": "Rama 4", "detalle": "Info"}
-          ]
-        }
-      }
+      Genera resumen y mapa mental (4 ramas principales).
+      JSON: {"resumen": "...", "mapa": {"tema": "...", "ramas": [{"titulo": "...", "detalle": "..."}]}}
       Texto: ${text.substring(0, 2500)}
     `;
 
@@ -62,12 +47,11 @@ async function procesarSRAP(text) {
     };
 
   } catch (err) {
-    console.error(err);
-    return { error: "Error en procesamiento neuronal: " + err.message };
+    console.error("Fallo en el sistema nervioso:", err);
+    return { error: "Caos en el procesamiento: " + err.message };
   }
 }
 
-// Utilería para limpiar respuestas de IA (a veces meten markdown ```json ... ```)
 function limpiarJSON(str) {
   return str.replace(/```json/g, '').replace(/```/g, '').trim();
 }
