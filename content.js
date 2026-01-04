@@ -1,13 +1,14 @@
+// content.js - ESCANEO DE INTEGRIDAD DOM
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "scanDOM") {
-    // Prioridad: Article > Main > Body
-    const content = document.querySelector('article')?.innerText || 
-                    document.querySelector('main')?.innerText || 
-                    document.body.innerText;
+    // Prioridad de extracción: Artículos, Contenido Principal o el Cuerpo total
+    const rawContent = document.querySelector('article')?.innerText || 
+                       document.querySelector('main')?.innerText || 
+                       document.body.innerText;
     
-    // Limpieza básica de espacios
-    const cleanText = content.replace(/\s+/g, ' ').trim();
+    // Limpieza de ruido visual y espacios en blanco
+    const cleanContent = rawContent.replace(/\s+/g, ' ').trim();
     
-    sendResponse({ text: cleanText });
+    sendResponse({ text: cleanContent });
   }
 });
