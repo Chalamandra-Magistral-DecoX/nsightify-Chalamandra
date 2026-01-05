@@ -1,3 +1,4 @@
+
 # 🦎 Insightify Chalamandra Pro v4.5.1
 **"Caos transformado en Claridad. Soberanía Cognitiva 100% Local."**
 
