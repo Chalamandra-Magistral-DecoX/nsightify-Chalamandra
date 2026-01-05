@@ -39,3 +39,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true; // Keep the message channel open for async response
   }
 });
+
+// Notify background that we are ready
+chrome.runtime.sendMessage({ action: 'OFFSCREEN_READY' });

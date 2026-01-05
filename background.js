@@ -15,33 +15,41 @@ async function setupOffscreenDocument(path) {
   if (creatingOffscreenDocument) {
     await creatingOffscreenDocument;
   } else {
-    creatingOffscreenDocument = chrome.offscreen.createDocument({
-      url: path,
-      reasons: ['DOM_PARSER'],
-      justification: 'Processing AI requests with Gemini Nano',
-    });
+    creatingOffscreenDocument = (async () => {
+      // Create a promise that resolves when the offscreen document signals readiness
+      let resolveReady;
+      const readyPromise = new Promise(resolve => resolveReady = resolve);
+
+      const listener = (msg) => {
+        if (msg.action === 'OFFSCREEN_READY') {
+          chrome.runtime.onMessage.removeListener(listener);
+          resolveReady();
+        }
+      };
+      chrome.runtime.onMessage.addListener(listener);
+
+      try {
+        await chrome.offscreen.createDocument({
+          url: path,
+          reasons: ['DOM_PARSER'],
+          justification: 'Processing AI requests with Gemini Nano',
+        });
+        await readyPromise;
+      } catch (err) {
+        chrome.runtime.onMessage.removeListener(listener);
+        throw err;
+      }
+    })();
+
     await creatingOffscreenDocument;
     creatingOffscreenDocument = null;
   }
 }
 
-// Function to send message to offscreen document with retry
+// Function to send message to offscreen document
 async function sendMessageToOffscreen(message) {
   await setupOffscreenDocument('offscreen.html');
-
-  // Retry logic to handle race condition where offscreen script isn't ready
-  let attempts = 0;
-  while (attempts < 10) {
-    try {
-      const response = await chrome.runtime.sendMessage(message);
-      if (response) return response;
-    } catch (e) {
-      // Ignore error and retry
-    }
-    await new Promise(resolve => setTimeout(resolve, 100));
-    attempts++;
-  }
-  throw new Error("Failed to communicate with offscreen document.");
+  return await chrome.runtime.sendMessage(message);
 }
 
 async function generateHash(text) {
