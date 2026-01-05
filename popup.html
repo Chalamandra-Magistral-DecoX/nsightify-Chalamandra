@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="chalamandra-container">
+        <header>
+            <div class="brand">
+                <span class="icon">🦎</span>
+                <span class="logo">CHALAMANDRA <span class="pro">PRO</span></span>
+            </div>
+            <div id="identicon" class="identicon-box" title="Firma Digital del Contenido"></div>
+        </header>
+
+        <main>
+            <div id="statusBadge" class="status-badge">NÚCLEO ONLINE</div>
+
+            <button id="btnAction" class="btn-primary">DECODIFICAR REALIDAD</button>
+
+            <div id="loader" class="loader hidden">
+                <div class="spinner"></div>
+                <p>Sincronizando con el Cortex...</p>
+            </div>
+
+            <div id="riskArea" class="alert-red hidden">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>CONTENIDO BLOQUEADO (BLACKLIST)</span>
+            </div>
+
+            <div id="result" class="result-box hidden"></div>
+
+            <canvas id="mapCanvas" class="hidden" width="280" height="150"></canvas>
+
+            <div id="audio-controls" class="audio-panel hidden">
+                <button id="btnPlay" class="btn-audio">🔊 ESCUCHAR INSIGHT</button>
+                <button id="btnBlacklist" class="btn-danger">MARCAR COMO BASURA</button>
+            </div>
+        </main>
+
+        <footer>
+            <span>v4.5.1 • SOBERANÍA COGNITIVA</span>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

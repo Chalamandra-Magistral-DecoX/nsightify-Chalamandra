@@ -1,0 +1,92 @@
+:root {
+    --chaos-red: #FF003C;
+    --clarity-green: #39FF14;
+    --cyber-cyan: #00FFEA;
+    --dark-bg: #050510;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    width: 320px;
+    margin: 0;
+    background: var(--dark-bg);
+    color: #e0e0ff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.chalamandra-container {
+    padding: 16px;
+    border: 1px solid rgba(0, 255, 234, 0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--clarity-green);
+}
+
+.pro { color: #fff; font-size: 0.7em; vertical-align: top; }
+
+.identicon-box {
+    width: 35px;
+    height: 35px;
+    background: var(--glass);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, var(--chaos-red), #9D00FF);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+.result-box {
+    margin-top: 15px;
+    padding: 12px;
+    background: var(--glass);
+    border-left: 3px solid var(--cyber-cyan);
+    font-size: 12px;
+    line-height: 1.5;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Animaciones de Audio */
+.vibrating { animation: pulse 0.6s infinite; filter: drop-shadow(0 0 5px var(--clarity-green)); }
+@keyframes pulse { 50% { transform: scale(1.1); } }
+
+.hidden { display: none; }
+
+.alert-red {
+    background: var(--chaos-red);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.status-badge {
+    font-size: 9px;
+    color: var(--cyber-cyan);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-align: center;
+}
