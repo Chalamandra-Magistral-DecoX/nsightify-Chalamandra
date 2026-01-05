@@ -17,7 +17,7 @@ async function setupOffscreenDocument(path) {
   } else {
     creatingOffscreenDocument = chrome.offscreen.createDocument({
       url: path,
-      reasons: ['WORKERS'],
+      reasons: ['DOM_PARSER'],
       justification: 'Processing AI requests with Gemini Nano',
     });
     await creatingOffscreenDocument;
